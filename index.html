@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Dashboard truy vấn, thống kê, theo dõi và giám sát quản lý, khai thác các cơ sở nhà, đất năm 2026 tại Vĩnh Long.">
   <meta name="theme-color" content="#0f172a">
+  <meta name="robots" content="index,follow">
   <title>Quỹ đất 2026 · Dashboard quản lý nhà, đất</title>
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -25,7 +26,7 @@
     <section class="notice" id="sourceNotice">
       <strong>Nguyên tắc dữ liệu:</strong>
       tổng chuẩn là <b>62 cơ sở</b>, theo phân nhóm chi tiết 8 đã tiếp nhận + 25 đã khảo sát chưa tiếp nhận + 29 chưa liên hệ bàn giao.
-      Các mâu thuẫn giữa nguồn được giữ lại dưới dạng cảnh báo, không âm thầm sửa.
+      Mâu thuẫn giữa các nguồn được giữ lại dưới dạng cảnh báo để xác minh, không âm thầm ghi đè.
     </section>
 
     <section class="kpi-grid" aria-label="Chỉ số chính">
@@ -39,10 +40,7 @@
 
     <section class="panel">
       <div class="panel-head">
-        <div>
-          <h2>Tiến độ tiếp nhận</h2>
-          <p>Tỷ trọng theo 62 cơ sở trong phương án</p>
-        </div>
+        <div><h2>Tiến độ tiếp nhận</h2><p>Tỷ trọng trạng thái trên 62 cơ sở trong phương án.</p></div>
       </div>
       <div class="progress-stack" id="progressStack" aria-label="Tỷ lệ trạng thái"></div>
       <div class="legend">
@@ -54,10 +52,7 @@
 
     <section class="panel">
       <div class="panel-head">
-        <div>
-          <h2>Bộ lọc truy vấn</h2>
-          <p>Tìm theo tên, địa chỉ, đơn vị bàn giao, quyết định hoặc mã tài sản.</p>
-        </div>
+        <div><h2>Bộ lọc truy vấn</h2><p>Tìm theo tên, địa chỉ, đơn vị bàn giao, quyết định hoặc mã tài sản.</p></div>
         <button id="resetBtn" class="btn ghost" type="button">↺ Xóa lọc</button>
       </div>
       <div class="filters">
@@ -80,19 +75,11 @@
           </select>
         </label>
       </div>
-      <div class="filter-summary">
-        <strong id="resultCount">62</strong> cơ sở đang hiển thị ·
-        <span id="filteredArea">0</span> m² diện tích đất hồ sơ
-      </div>
+      <div class="filter-summary"><strong id="resultCount">62</strong> cơ sở đang hiển thị · <span id="filteredArea">0</span> m² diện tích đất hồ sơ</div>
     </section>
 
     <section class="panel table-panel">
-      <div class="panel-head">
-        <div>
-          <h2>Danh mục cơ sở nhà, đất</h2>
-          <p>Nhấp vào một dòng để xem hồ sơ chi tiết và các cảnh báo nguồn.</p>
-        </div>
-      </div>
+      <div class="panel-head"><div><h2>Danh mục cơ sở nhà, đất</h2><p>Nhấp vào một dòng để xem hồ sơ chi tiết, phương án khai thác và cảnh báo nguồn.</p></div></div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -127,29 +114,27 @@
       </article>
 
       <article class="panel">
-        <div class="panel-head">
-          <div><h2>Cảnh báo chất lượng dữ liệu</h2><p>Ưu tiên xác nhận trước khi dùng cho quyết định hành chính/tài chính.</p></div>
-        </div>
+        <div class="panel-head"><div><h2>Cảnh báo chất lượng dữ liệu</h2><p>Ưu tiên xác nhận trước khi dùng cho quyết định hành chính/tài chính.</p></div></div>
         <div id="qualityFindings" class="quality-list"></div>
       </article>
     </section>
 
     <section class="panel">
-      <div class="panel-head">
-        <div><h2>Hồ sơ đang chọn</h2><p id="detailHint">Chọn một cơ sở trong bảng.</p></div>
-      </div>
+      <div class="panel-head"><div><h2>Hồ sơ đang chọn</h2><p id="detailHint">Chọn một cơ sở trong bảng.</p></div></div>
       <div id="detailPanel" class="detail empty">Chưa chọn dữ liệu.</div>
     </section>
   </main>
 
   <footer>
-    <span>Dataset schema v1.0 · cập nhật biên soạn 13/08/2026</span>
-    <a href="./data/assets.json">JSON</a>
-    <a href="./data/assets.csv">CSV</a>
+    <span>Dataset schema v1.1.0 · biên soạn 13/08/2026</span>
+    <a href="./data/meta.json">Metadata</a>
+    <a href="./data/assets-received.json">8 đã tiếp nhận</a>
+    <a href="./data/assets-surveyed.json">25 đã khảo sát</a>
+    <a href="./data/assets-not-contacted.json">29 chưa liên hệ</a>
     <a href="./docs/DATA_DICTIONARY.md">Từ điển dữ liệu</a>
+    <a href="./docs/DATA_QUALITY.md">Chất lượng dữ liệu</a>
   </footer>
 
-  <script src="./data/assets.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
