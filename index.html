@@ -1,140 +1,19 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Dashboard truy vấn, thống kê, theo dõi và giám sát quản lý, khai thác các cơ sở nhà, đất năm 2026 tại Vĩnh Long.">
-  <meta name="theme-color" content="#0f172a">
-  <meta name="robots" content="index,follow">
-  <title>Quỹ đất 2026 · Dashboard quản lý nhà, đất</title>
-  <link rel="stylesheet" href="./style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Dashboard truy vấn, thống kê, theo dõi và giám sát quản lý, khai thác các cơ sở nhà, đất năm 2026 tại Vĩnh Long."><meta name="theme-color" content="#0f172a"><meta name="robots" content="index,follow"><title>Quỹ đất 2026 · Dashboard quản lý nhà, đất</title><link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div>
-      <p class="eyebrow">TRUNG TÂM PHÁT TRIỂN QUỸ ĐẤT · VĨNH LONG</p>
-      <h1>Quỹ đất 2026</h1>
-      <p class="subtitle">Truy vấn · thống kê · theo dõi · giám sát cơ sở nhà, đất</p>
-    </div>
-    <div class="top-actions">
-      <button id="themeBtn" class="btn ghost" type="button" title="Đổi giao diện">◐ Giao diện</button>
-      <button id="exportBtn" class="btn" type="button">↓ Xuất CSV đang lọc</button>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="notice" id="sourceNotice">
-      <strong>Nguyên tắc dữ liệu:</strong>
-      tổng chuẩn là <b>62 cơ sở</b>, theo phân nhóm chi tiết 8 đã tiếp nhận + 25 đã khảo sát chưa tiếp nhận + 29 chưa liên hệ bàn giao.
-      Mâu thuẫn giữa các nguồn được giữ lại dưới dạng cảnh báo để xác minh, không âm thầm ghi đè.
-    </section>
-
-    <section class="kpi-grid" aria-label="Chỉ số chính">
-      <article class="kpi"><span>Tổng cơ sở</span><strong id="kpiTotal">62</strong><small>100%</small></article>
-      <article class="kpi success"><span>Đã tiếp nhận</span><strong id="kpiReceived">8</strong><small id="pctReceived">12,9%</small></article>
-      <article class="kpi warning"><span>Đã khảo sát, chưa tiếp nhận</span><strong id="kpiSurveyed">25</strong><small id="pctSurveyed">40,3%</small></article>
-      <article class="kpi danger"><span>Chưa liên hệ bàn giao</span><strong id="kpiNotContacted">29</strong><small id="pctNotContacted">46,8%</small></article>
-      <article class="kpi info"><span>Cho thuê ngắn hạn</span><strong id="kpiLease">9</strong><small>Phụ lục 4</small></article>
-      <article class="kpi info"><span>Kêu gọi đầu tư</span><strong id="kpiInvest">5</strong><small>Phụ lục 5</small></article>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head">
-        <div><h2>Tiến độ tiếp nhận</h2><p>Tỷ trọng trạng thái trên 62 cơ sở trong phương án.</p></div>
-      </div>
-      <div class="progress-stack" id="progressStack" aria-label="Tỷ lệ trạng thái"></div>
-      <div class="legend">
-        <span><i class="dot received"></i>Đã tiếp nhận</span>
-        <span><i class="dot surveyed"></i>Đã khảo sát, chưa tiếp nhận</span>
-        <span><i class="dot pending"></i>Chưa liên hệ bàn giao</span>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head">
-        <div><h2>Bộ lọc truy vấn</h2><p>Tìm theo tên, địa chỉ, đơn vị bàn giao, quyết định hoặc mã tài sản.</p></div>
-        <button id="resetBtn" class="btn ghost" type="button">↺ Xóa lọc</button>
-      </div>
-      <div class="filters">
-        <label class="search"><span>Tìm kiếm</span><input id="searchInput" type="search" placeholder="Ví dụ: Bình Minh, 480/QĐ-UBND, trường tiểu học..."></label>
-        <label><span>Trạng thái</span><select id="statusFilter"><option value="">Tất cả</option></select></label>
-        <label><span>Quyết định</span><select id="decisionFilter"><option value="">Tất cả</option></select></label>
-        <label><span>Khai thác</span>
-          <select id="planFilter">
-            <option value="">Tất cả</option>
-            <option value="short_term_lease">Cho thuê ngắn hạn</option>
-            <option value="investment_call">Kêu gọi đầu tư</option>
-            <option value="none">Chưa gắn phương án</option>
-          </select>
-        </label>
-        <label><span>Chất lượng dữ liệu</span>
-          <select id="qualityFilter">
-            <option value="">Tất cả</option>
-            <option value="warning">Có cảnh báo</option>
-            <option value="clean">Không cảnh báo</option>
-          </select>
-        </label>
-      </div>
-      <div class="filter-summary"><strong id="resultCount">62</strong> cơ sở đang hiển thị · <span id="filteredArea">0</span> m² diện tích đất hồ sơ</div>
-    </section>
-
-    <section class="panel table-panel">
-      <div class="panel-head"><div><h2>Danh mục cơ sở nhà, đất</h2><p>Nhấp vào một dòng để xem hồ sơ chi tiết, phương án khai thác và cảnh báo nguồn.</p></div></div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th data-sort="asset_id">Mã</th>
-              <th data-sort="name">Cơ sở nhà, đất</th>
-              <th data-sort="status">Trạng thái</th>
-              <th data-sort="decision_no">Quyết định</th>
-              <th data-sort="land_area_m2" class="num">Diện tích đất</th>
-              <th>Khai thác</th>
-              <th>Cảnh báo</th>
-            </tr>
-          </thead>
-          <tbody id="assetRows"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="two-col">
-      <article class="panel">
-        <div class="panel-head"><div><h2>Nhịp quản lý 2026</h2><p>Các mốc vận hành trích từ phương án.</p></div></div>
-        <div class="ops-grid">
-          <div><strong>02–04</strong><span>lần kiểm tra/tháng</span></div>
-          <div><strong>≥ 01</strong><span>lần phát hoang/năm</span></div>
-          <div><strong>24/24</strong><span>bảo vệ khi cần</span></div>
-          <div><strong>≤ 05 năm</strong><span>cho thuê ngắn hạn</span></div>
-        </div>
-        <div class="timeline">
-          <div><b>Quý III–IV/2026</b><span>Kiểm tra hiện trạng; phát hoang; tổ chức đấu giá, cho thuê và kêu gọi đầu tư.</span></div>
-          <div><b>Ngày 30 cuối quý</b><span>Báo cáo kết quả phối hợp tiếp nhận các cơ sở nhà, đất.</span></div>
-        </div>
-      </article>
-
-      <article class="panel">
-        <div class="panel-head"><div><h2>Cảnh báo chất lượng dữ liệu</h2><p>Ưu tiên xác nhận trước khi dùng cho quyết định hành chính/tài chính.</p></div></div>
-        <div id="qualityFindings" class="quality-list"></div>
-      </article>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><div><h2>Hồ sơ đang chọn</h2><p id="detailHint">Chọn một cơ sở trong bảng.</p></div></div>
-      <div id="detailPanel" class="detail empty">Chưa chọn dữ liệu.</div>
-    </section>
-  </main>
-
-  <footer>
-    <span>Dataset schema v1.1.0 · biên soạn 13/08/2026</span>
-    <a href="./data/meta.json">Metadata</a>
-    <a href="./data/assets-received.json">8 đã tiếp nhận</a>
-    <a href="./data/assets-surveyed.json">25 đã khảo sát</a>
-    <a href="./data/assets-not-contacted.json">29 chưa liên hệ</a>
-    <a href="./docs/DATA_DICTIONARY.md">Từ điển dữ liệu</a>
-    <a href="./docs/DATA_QUALITY.md">Chất lượng dữ liệu</a>
-  </footer>
-
-  <script src="./app.js"></script>
-</body>
-</html>
+<header class="topbar"><div><p class="eyebrow">TRUNG TÂM PHÁT TRIỂN QUỸ ĐẤT · VĨNH LONG</p><h1>Quỹ đất 2026</h1><p class="subtitle">Truy vấn · thống kê · theo dõi · giám sát cơ sở nhà, đất</p></div><div class="top-actions"><a class="btn ghost" href="./danh-muc-cho-thue.html">🏢 Danh mục cho thuê 2026</a><button id="themeBtn" class="btn ghost" type="button" title="Đổi giao diện">◐ Giao diện</button><button id="exportBtn" class="btn" type="button">↓ Xuất CSV đang lọc</button></div></header>
+<main class="container">
+<section class="notice" id="sourceNotice"><strong>Nguyên tắc dữ liệu:</strong> tổng chuẩn là <b>62 cơ sở</b>, theo phân nhóm chi tiết 8 đã tiếp nhận + 25 đã khảo sát chưa tiếp nhận + 29 chưa liên hệ bàn giao. Mâu thuẫn giữa các nguồn được giữ lại dưới dạng cảnh báo để xác minh, không âm thầm ghi đè.</section>
+<section class="kpi-grid" aria-label="Chỉ số chính"><article class="kpi"><span>Tổng cơ sở</span><strong id="kpiTotal">62</strong><small>100%</small></article><article class="kpi success"><span>Đã tiếp nhận</span><strong id="kpiReceived">8</strong><small id="pctReceived">12,9%</small></article><article class="kpi warning"><span>Đã khảo sát, chưa tiếp nhận</span><strong id="kpiSurveyed">25</strong><small id="pctSurveyed">40,3%</small></article><article class="kpi danger"><span>Chưa liên hệ bàn giao</span><strong id="kpiNotContacted">29</strong><small id="pctNotContacted">46,8%</small></article><article class="kpi info"><span>Cho thuê ngắn hạn</span><strong id="kpiLease">9</strong><small>Phụ lục 4</small></article><article class="kpi info"><span>Kêu gọi đầu tư</span><strong id="kpiInvest">5</strong><small>Phụ lục 5</small></article></section>
+<section class="panel"><div class="panel-head"><div><h2>Tiến độ tiếp nhận</h2><p>Tỷ trọng trạng thái trên 62 cơ sở trong phương án.</p></div></div><div class="progress-stack" id="progressStack" aria-label="Tỷ lệ trạng thái"></div><div class="legend"><span><i class="dot received"></i>Đã tiếp nhận</span><span><i class="dot surveyed"></i>Đã khảo sát, chưa tiếp nhận</span><span><i class="dot pending"></i>Chưa liên hệ bàn giao</span></div></section>
+<section class="panel"><div class="panel-head"><div><h2>Bộ lọc truy vấn</h2><p>Tìm theo tên, địa chỉ, đơn vị bàn giao, quyết định hoặc mã tài sản.</p></div><button id="resetBtn" class="btn ghost" type="button">↺ Xóa lọc</button></div><div class="filters"><label class="search"><span>Tìm kiếm</span><input id="searchInput" type="search" placeholder="Ví dụ: Bình Minh, 480/QĐ-UBND, trường tiểu học..."></label><label><span>Trạng thái</span><select id="statusFilter"><option value="">Tất cả</option></select></label><label><span>Quyết định</span><select id="decisionFilter"><option value="">Tất cả</option></select></label><label><span>Khai thác</span><select id="planFilter"><option value="">Tất cả</option><option value="short_term_lease">Cho thuê ngắn hạn</option><option value="investment_call">Kêu gọi đầu tư</option><option value="none">Chưa gắn phương án</option></select></label><label><span>Chất lượng dữ liệu</span><select id="qualityFilter"><option value="">Tất cả</option><option value="warning">Có cảnh báo</option><option value="clean">Không cảnh báo</option></select></label></div><div class="filter-summary"><strong id="resultCount">62</strong> cơ sở đang hiển thị · <span id="filteredArea">0</span> m² diện tích đất hồ sơ</div></section>
+<section class="panel table-panel"><div class="panel-head"><div><h2>Danh mục cơ sở nhà, đất</h2><p>Nhấp vào một dòng để xem hồ sơ chi tiết, phương án khai thác và cảnh báo nguồn.</p></div></div><div class="table-wrap"><table><thead><tr><th data-sort="asset_id">Mã</th><th data-sort="name">Cơ sở nhà, đất</th><th data-sort="status">Trạng thái</th><th data-sort="decision_no">Quyết định</th><th data-sort="land_area_m2" class="num">Diện tích đất</th><th>Khai thác</th><th>Cảnh báo</th></tr></thead><tbody id="assetRows"></tbody></table></div></section>
+<section class="two-col"><article class="panel"><div class="panel-head"><div><h2>Nhịp quản lý 2026</h2><p>Các mốc vận hành trích từ phương án.</p></div></div><div class="ops-grid"><div><strong>02–04</strong><span>lần kiểm tra/tháng</span></div><div><strong>≥ 01</strong><span>lần phát hoang/năm</span></div><div><strong>24/24</strong><span>bảo vệ khi cần</span></div><div><strong>≤ 05 năm</strong><span>cho thuê ngắn hạn</span></div></div><div class="timeline"><div><b>Quý III–IV/2026</b><span>Kiểm tra hiện trạng; phát hoang; tổ chức đấu giá, cho thuê và kêu gọi đầu tư.</span></div><div><b>Ngày 30 cuối quý</b><span>Báo cáo kết quả phối hợp tiếp nhận các cơ sở nhà, đất.</span></div></div></article><article class="panel"><div class="panel-head"><div><h2>Cảnh báo chất lượng dữ liệu</h2><p>Ưu tiên xác nhận trước khi dùng cho quyết định hành chính/tài chính.</p></div></div><div id="qualityFindings" class="quality-list"></div></article></section>
+<section class="panel"><div class="panel-head"><div><h2>Hồ sơ đang chọn</h2><p id="detailHint">Chọn một cơ sở trong bảng.</p></div></div><div id="detailPanel" class="detail empty">Chưa chọn dữ liệu.</div></section>
+</main>
+<footer><span>Dataset schema v1.1.0 · biên soạn 13/08/2026</span><a href="./danh-muc-cho-thue.html">🏢 Danh mục cho thuê 2026</a><a href="./data/meta.json">Metadata</a><a href="./data/assets-received.json">8 đã tiếp nhận</a><a href="./data/assets-surveyed.json">25 đã khảo sát</a><a href="./data/assets-not-contacted.json">29 chưa liên hệ</a><a href="./docs/DATA_DICTIONARY.md">Từ điển dữ liệu</a><a href="./docs/DATA_QUALITY.md">Chất lượng dữ liệu</a></footer>
+<script src="./app.js"></script>
+</body></html>
