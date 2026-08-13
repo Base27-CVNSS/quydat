@@ -1,0 +1,1 @@
+(async()=>{const files=['./data/rental-504.json','./data/rental-512.json','./data/rental-521.json'];const data=await Promise.all(files.map(p=>fetch(p,{cache:'no-store'}).then(r=>r.json())));window.RENTAL_2026={notices:data.map(x=>x.notice),listings:data.flatMap(x=>x.listings)};})();
