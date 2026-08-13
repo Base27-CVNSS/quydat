@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.1.0",
+  "dataset_id": "quydat-vinhlong-2026",
+  "compiled_at": "2026-08-13",
+  "canonical_counts": {
+    "total": 62,
+    "received": 8,
+    "surveyed_not_received": 25,
+    "not_contacted": 29
+  },
+  "status_labels": {
+    "received": "Đã tiếp nhận",
+    "surveyed_not_received": "Đã khảo sát, chưa tiếp nhận",
+    "not_contacted": "Chưa liên hệ bàn giao"
+  },
+  "quality_flag_definitions": {
+    "STATUS_SOURCE_CONFLICT": "Trạng thái trong bảng tổng hợp cũ khác trạng thái mới nêu trong Phương án 2026.",
+    "AREA_PLAN_CONFLICT": "Diện tích hồ sơ chi tiết khác diện tích dùng trong phụ lục khai thác.",
+    "PARTIAL_DETAIL_SOURCE": "Chỉ có thông tin cơ bản từ phụ lục khai thác; thiếu một số trường chi tiết.",
+    "PLAN_BEFORE_RECEIPT": "Tài sản có trong phụ lục khai thác nhưng trạng thái hiện tại vẫn là chưa tiếp nhận.",
+    "PLAN_AREA_CONFLICT": "Diện tích trong phụ lục khai thác khác diện tích hồ sơ trạng thái."
+  }
+}
