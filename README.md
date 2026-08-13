@@ -3,48 +3,55 @@
 > **Kho dữ liệu sạch + dashboard tĩnh** phục vụ truy vấn, thống kê, theo dõi và giám sát công tác quản lý, khai thác các cơ sở nhà, đất năm 2026 của Trung tâm Phát triển quỹ đất tỉnh Vĩnh Long.
 
 ![Data](https://img.shields.io/badge/data-62_cơ_sở-0f766e)
-![Status](https://img.shields.io/badge/đã_tiếp_nhận-8-15803d)
+![Received](https://img.shields.io/badge/đã_tiếp_nhận-8-15803d)
 ![Surveyed](https://img.shields.io/badge/đã_khảo_sát_chưa_tiếp_nhận-25-b45309)
 ![Pending](https://img.shields.io/badge/chưa_liên_hệ_bàn_giao-29-b91c1c)
-![License](https://img.shields.io/badge/license-MIT-blue)
+![Schema](https://img.shields.io/badge/schema-1.1.0-0369a1)
+![License](https://img.shields.io/badge/code-MIT-blue)
 
 ## 🎯 Mục tiêu
 
-Repository này không chỉ lưu các bảng Excel rời. Dữ liệu được tái cấu trúc thành **một bộ dữ liệu chuẩn có mã định danh ổn định**, tách rõ:
+Repository được thiết kế lại theo hướng **data-first**: không dùng các bảng Excel rời làm lớp truy vấn trực tiếp, mà chuẩn hóa thành các bản ghi có ID ổn định, có dấu vết nguồn và có cờ chất lượng.
 
-- **trạng thái tiếp nhận**;
-- **quyết định giao/thu hồi**;
-- **diện tích đất, diện tích nhà**;
-- **nguyên giá, giá trị còn lại**;
-- **đơn vị bàn giao**;
-- **phương án khai thác**;
-- **cảnh báo chất lượng dữ liệu và xung đột giữa nguồn**.
+Mỗi cơ sở có thể theo dõi:
 
-Dashboard hoạt động thuần HTML/CSS/JavaScript, không framework, không CDN và không có backend nên phù hợp để lưu trữ lâu dài trên GitHub Pages.
+- trạng thái bàn giao/tiếp nhận;
+- số và ngày quyết định;
+- diện tích đất, diện tích nhà;
+- nguyên giá, giá trị còn lại khi nguồn có dữ liệu;
+- đơn vị bàn giao;
+- phương án cho thuê ngắn hạn/kêu gọi đầu tư;
+- chênh lệch diện tích giữa hồ sơ và phụ lục khai thác;
+- cảnh báo cần xác minh nghiệp vụ.
 
-## 📊 Số liệu chuẩn đang sử dụng
+Dashboard chạy bằng **HTML + CSS + JavaScript thuần**, không framework, không CDN, không backend. Dữ liệu nằm trong JSON có thể mở bằng Excel/Power BI/Python hoặc tái sử dụng cho hệ thống khác.
 
-| Nhóm | Số cơ sở | Tỷ trọng |
+## 📊 Mẫu số chuẩn
+
+| Nhóm trạng thái | Số cơ sở | Tỷ trọng |
 |---|---:|---:|
 | ✅ Đã tiếp nhận | 8 | 12,9% |
 | 🟠 Đã khảo sát, chưa tiếp nhận | 25 | 40,3% |
 | 🔴 Chưa liên hệ bàn giao | 29 | 46,8% |
 | **Tổng** | **62** | **100%** |
 
-Quy tắc chuẩn hóa ưu tiên **phân nhóm chi tiết 8 + 25 + 29 = 62**. Các sai lệch trong văn bản nguồn không bị “sửa lặng”; chúng được đưa vào `quality_flags` và tài liệu kiểm soát chất lượng.
+Ngoài ra dữ liệu hiện liên kết **9 cơ sở** trong Phụ lục 4 (cho thuê ngắn hạn) và **5 cơ sở** trong Phụ lục 5 (kêu gọi đầu tư).
 
-## 🧭 Dashboard có gì?
+## 🧭 Dashboard
 
-- 🔎 Tìm kiếm toàn văn theo tên, địa chỉ, đơn vị bàn giao, mã tài sản, quyết định.
-- 🎛️ Lọc theo trạng thái, quyết định, phương án khai thác và cảnh báo dữ liệu.
-- 📈 KPI và thanh tiến độ tiếp nhận.
-- 🧾 Xem hồ sơ chi tiết từng cơ sở.
-- 🏷️ Theo dõi tài sản nằm trong Phụ lục **cho thuê ngắn hạn** hoặc **kêu gọi đầu tư**.
-- ⚠️ Hiển thị mâu thuẫn nguồn thay vì che giấu.
-- 📤 Xuất CSV theo bộ lọc hiện tại ngay trên trình duyệt.
-- 🌙 Giao diện sáng/tối, responsive cho desktop và mobile.
+Dashboard hỗ trợ:
 
-## 🗂️ Cấu trúc
+- 🔎 tìm kiếm không dấu theo tên, địa chỉ, đơn vị bàn giao, số quyết định, mã tài sản;
+- 🎛️ lọc trạng thái, quyết định, phương án khai thác, chất lượng dữ liệu;
+- ↕️ sắp xếp trực tiếp trên tiêu đề bảng;
+- 📈 KPI và thanh tiến độ 8/25/29;
+- 🧾 xem hồ sơ chi tiết từng cơ sở;
+- 🏷️ đối chiếu diện tích hồ sơ với diện tích trong Phụ lục 4/5;
+- ⚠️ hiển thị `quality_flags` thay vì che giấu mâu thuẫn nguồn;
+- 📤 xuất CSV theo đúng bộ lọc đang xem;
+- 🌙 sáng/tối và responsive desktop/mobile.
+
+## 🗂️ Cấu trúc repository
 
 ```text
 quydat/
@@ -52,88 +59,112 @@ quydat/
 ├─ style.css
 ├─ app.js
 ├─ data/
-│  ├─ assets.json          # nguồn dữ liệu chuẩn, 62 cơ sở
-│  ├─ assets.js            # mirror cho dashboard tĩnh
-│  ├─ assets.csv           # dùng cho Excel/BI
-│  ├─ plans.csv            # danh mục khai thác PL4/PL5
-│  ├─ plan-2026.json       # nhịp quản lý, mốc thực hiện, cảnh báo
-│  └─ source-manifest.json # dấu vân tay SHA-256 của nguồn nhập
+│  ├─ meta.json
+│  ├─ assets-received.json        # 8 cơ sở
+│  ├─ assets-surveyed.json        # 25 cơ sở
+│  ├─ assets-not-contacted.json   # 29 cơ sở
+│  └─ source-manifest.json        # SHA-256 của 5 tệp nguồn
 ├─ docs/
 │  ├─ DATA_DICTIONARY.md
 │  └─ DATA_QUALITY.md
 ├─ scripts/
-│  ├─ validate_data.py
-│  └─ export_csv.py
-└─ .github/workflows/
-   ├─ validate.yml
-   └─ pages.yml
+│  └─ validate_data.py
+├─ .github/workflows/
+│  ├─ validate.yml
+│  └─ pages.yml
+└─ LICENSE
 ```
 
-## 🧬 Nguyên tắc “data sạch dùng lâu dài”
+## 🧬 Quy tắc “data sạch dùng lâu dài”
 
-1. `asset_id` là khóa chính và **không tái sử dụng**.
-2. Dữ liệu hồ sơ và dữ liệu phương án khai thác được giữ **riêng trường**, không ghi đè khi diện tích khác nhau.
-3. Không suy diễn thông tin còn thiếu; trường chưa xác định để `null`.
-4. Mọi xung đột nguồn phải có `quality_flags`.
-5. Mỗi lần thay nguồn cần cập nhật `source-manifest.json`.
-6. CI bắt buộc kiểm tra: 62 ID duy nhất, đúng cơ cấu 8/25/29, giá trị không âm và liên kết phương án hợp lệ.
+1. **ID bất biến:** `asset_id` dạng `CSND-2026-001` → `CSND-2026-062`; không tái sử dụng ID.
+2. **Không ghi đè mâu thuẫn:** `land_area_m2` và `plans[].plan_area_m2` là hai ngữ cảnh nguồn khác nhau.
+3. **Không suy diễn:** không có dữ liệu thì để `null`, không tự điền cho đẹp bảng.
+4. **Có nguồn gốc:** `source` lưu phụ lục/STT/dòng nhập; `source-manifest.json` lưu SHA-256 tệp nguồn.
+5. **Mâu thuẫn phải nhìn thấy:** dùng `quality_flags` và `docs/DATA_QUALITY.md`.
+6. **Kiểm tra tự động:** CI xác minh đủ 62 ID, đúng 8/25/29, đúng 9/5 phương án và không có số âm.
+7. **Git là lịch sử dữ liệu:** khi có văn bản mới, sửa bằng commit mới; không xóa lịch sử để mất dấu nguồn cũ.
 
-## ⚠️ Các điểm cần xác nhận nghiệp vụ
+## ⚠️ 5 điểm dữ liệu cần ưu tiên xác nhận
 
-Hiện dataset chủ động gắn cờ một số vấn đề:
+- Văn bản nêu “đã tiếp nhận 08/62, còn lại 55”, trong khi 8 + 25 + 29 = 62 nên số chưa tiếp nhận theo phân nhóm là **54**.
+- Tổng diện tích **14.582,5 m²** ở phần đấu giá khớp 7 cơ sở nếu không tính Huyện đội thị xã Bình Minh.
+- Huyện đội thị xã Bình Minh: hồ sơ tổng hợp dùng **4.568,8 m²**, Phụ lục 4/5 dùng **3.928,2 m²**.
+- Trung tâm CNTT-TT: Phụ lục 2 dùng **1.226,0 m²**, Phụ lục 4/5 dùng **1.218,5 m²**.
+- Trung tâm CNTT-TT vẫn ở trạng thái đã khảo sát/chưa tiếp nhận nhưng đã xuất hiện trong Phụ lục 4 và 5.
 
-- Văn bản nêu “đã tiếp nhận 08/62, còn lại 55”, nhưng phân nhóm chi tiết cho kết quả **54 chưa tiếp nhận**.
-- Tổng diện tích **14.582,5 m²** trong phần đấu giá trùng tổng của 7 cơ sở nếu không tính Huyện đội thị xã Bình Minh.
-- Huyện đội thị xã Bình Minh: hồ sơ tổng hợp cũ **4.568,8 m²**, Phụ lục 4/5 **3.928,2 m²**.
-- Trung tâm CNTT-TT: Phụ lục 2 **1.226,0 m²**, Phụ lục 4/5 **1.218,5 m²**.
-- Trung tâm CNTT-TT vẫn thuộc nhóm “đã khảo sát, chưa tiếp nhận” nhưng đồng thời có trong Phụ lục 4/5.
+Chi tiết và quy trình xử lý nằm tại [`docs/DATA_QUALITY.md`](docs/DATA_QUALITY.md).
 
-Xem chi tiết tại [`docs/DATA_QUALITY.md`](docs/DATA_QUALITY.md).
+## 🚀 Chạy trên máy
 
-## 🚀 Chạy
-
-Không cần cài đặt:
+Do dashboard nạp JSON bằng `fetch()`, hãy chạy qua HTTP server thay vì mở `index.html` bằng `file://`:
 
 ```bash
 python -m http.server 8080
 ```
 
-Mở `http://localhost:8080`.
+Sau đó mở:
 
-### GitHub Pages
+```text
+http://localhost:8080
+```
 
-Workflow `.github/workflows/pages.yml` đã được chuẩn bị. Nếu Pages của repository chưa bật, vào **Settings → Pages → Source → GitHub Actions**.
+## 🌐 GitHub Pages
 
-Sau khi bật, địa chỉ dự kiến:
+Repository đã có workflow `.github/workflows/pages.yml`. Nếu GitHub Pages chưa được bật, vào:
+
+**Settings → Pages → Build and deployment → Source → GitHub Actions**
+
+Khi Pages được bật và workflow deploy thành công, URL dự kiến:
 
 ```text
 https://base27-cvnss.github.io/quydat/
 ```
 
-## ✅ Kiểm tra dữ liệu
+## ✅ Kiểm định dữ liệu
 
 ```bash
 python scripts/validate_data.py
 ```
 
-Xuất lại CSV:
+Kỳ vọng:
 
-```bash
-python scripts/export_csv.py
+```text
+OK: 62 tài sản; trạng thái 8/25/29; Phụ lục 4 = 9; Phụ lục 5 = 5; ID duy nhất; số liệu không âm.
 ```
 
-## 📚 Nguồn biên soạn
+## 🔄 Quy trình cập nhật dữ liệu mới
 
-Bộ dữ liệu được lập từ các tài liệu người dùng cung cấp ngày 13/08/2026:
+```text
+Văn bản/Excel mới
+      ↓
+Đối chiếu asset_id hiện có
+      ↓
+Cập nhật đúng trường được xác nhận
+      ↓
+Bổ sung SHA-256 vào source-manifest
+      ↓
+Xử lý/giữ lại quality_flags
+      ↓
+python scripts/validate_data.py
+      ↓
+Commit → CI → GitHub Pages
+```
 
-- Phương án quản lý, khai thác các cơ sở nhà, đất năm 2026.
-- Phụ lục 2: đã khảo sát nhưng chưa đủ điều kiện tiếp nhận.
-- Phụ lục 3: chủ tài sản chưa liên hệ bàn giao.
-- Phụ lục 4: khai thác cho thuê ngắn hạn.
-- Phụ lục 5: kêu gọi đầu tư thực hiện dự án.
+Không tạo ID mới chỉ vì đổi tên cơ quan hoặc đổi địa chỉ hành chính nếu vẫn là cùng một cơ sở vật lý. Chỉ tạo ID mới khi xác định đó là một tài sản/cơ sở độc lập mới trong nghiệp vụ.
 
-Dấu vân tay SHA-256 của từng tệp nằm trong `data/source-manifest.json`.
+## 📚 Nguồn biên soạn hiện tại
+
+Bộ dữ liệu được biên soạn ngày **13/08/2026** từ 5 tệp nguồn:
+
+- Phương án quản lý, khai thác các cơ sở nhà, đất năm 2026;
+- Phụ lục 2 — đã khảo sát nhưng chưa tiếp nhận;
+- Phụ lục 3 — đơn vị bàn giao tài sản chưa liên hệ bàn giao;
+- Phụ lục 4 — các thửa đất cho thuê ngắn hạn;
+- Phụ lục 5 — các thửa đất kêu gọi đầu tư thực hiện dự án.
+
+Dấu vân tay SHA-256 nằm tại [`data/source-manifest.json`](data/source-manifest.json).
 
 ## 📄 Giấy phép
 
-Mã nguồn dashboard và các script trong repository phát hành theo **MIT License**. Dữ liệu hành chính/tài sản cần được sử dụng theo quy định và thẩm quyền của cơ quan quản lý; MIT License không làm thay đổi chế độ pháp lý của dữ liệu nguồn.
+Mã nguồn dashboard và script kiểm tra phát hành theo **MIT License**. Dữ liệu hành chính/tài sản vẫn phải được sử dụng theo quy định, thẩm quyền và chế độ pháp lý áp dụng cho dữ liệu nguồn; MIT License của phần mềm không làm thay đổi chế độ pháp lý đó.
